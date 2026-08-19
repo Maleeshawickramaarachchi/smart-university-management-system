@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Smart University System</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background-color: #0f172a;
+        }
+
+        .login-wrapper {
+            display: flex;
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        /* ==========================
+           LEFT PANEL - FORM DESIGN
+        ========================== */
+        .login-left {
+            width: 40%;
+            background: #0f172a;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 50px 60px;
+            color: #ffffff;
+            z-index: 2;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 20px;
+            font-weight: 600;
+            color: #3b82f6;
+        }
+
+        .brand-logo i {
+            font-size: 28px;
+        }
+
+        .form-container {
+            max-width: 380px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .form-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+
+        .form-subtitle {
+            color: #94a3b8;
+            font-size: 14px;
+            margin-bottom: 35px;
+        }
+
+        .input-box {
+            position: relative;
+            margin-bottom: 22px;
+        }
+
+        .input-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+            font-size: 18px;
+        }
+
+        .custom-input {
+            width: 100%;
+            background: #1e293b !important;
+            border: 1px solid #334155 !important;
+            padding: 14px 14px 14px 45px;
+            border-radius: 12px;
+            color: #ffffff !important;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .custom-input:focus {
+            border-color: #3b82f6 !important;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15) !important;
+        }
+
+        .custom-input::placeholder {
+            color: #64748b;
+        }
+
+        .login-btn {
+            width: 100%;
+            background: #2563eb;
+            color: #ffffff;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 15px;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+        }
+
+        .forgot-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #94a3b8;
+            font-size: 13px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-link:hover {
+            color: #3b82f6;
+        }
+
+        .footer-text {
+            color: #64748b;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        /* ==========================
+           RIGHT PANEL - IMAGE SECTION
+        ========================== */
+        .login-right {
+            width: 60%;
+            background: linear-gradient(rgba(15, 23, 42, 0.4), rgba(15, 23, 42, 0.7)), 
+                        url('../images/university-bg-1.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: flex-end;
+            padding: 60px;
+            position: relative;
+        }
+
+        .right-overlay-text {
+            color: #ffffff;
+            max-width: 500px;
+            backdrop-filter: blur(8px);
+            background: rgba(15, 23, 42, 0.4);
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .right-overlay-text h3 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .right-overlay-text p {
+            color: #cbd5e1;
+            font-size: 14px;
+            margin: 0;
+        }
+
+        /* Alerts */
+        .alert {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #fca5a5;
+            font-size: 13px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .alert-success {
+            background: rgba(34, 197, 94, 0.1);
+            border-color: rgba(34, 197, 94, 0.3);
+            color: #86efac;
+        }
+
+        /* Responsive View */
+        @media (max-width: 992px) {
+            .login-right {
+                display: none;
+            }
+
+            .login-left {
+                width: 100%;
+                padding: 40px 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-wrapper">
+
+       <!-- LEFT SIDE: Form Design -->
+<div class="login-left">
+    <div class="brand-logo">
+        <i class="bi bi-mortarboard-fill"></i>
+        <span>Smart University System</span>
+    </div>
+
+            <div class="form-container">
+                <h1 class="form-title">Welcome Back</h1>
+                <p class="form-subtitle">Sign in to access your administrative dashboard.</p>
+
+                <!-- Login Error Alert -->
+                <div th:if="${param.error}" class="alert alert-danger">
+                    Invalid username or password.
+                </div>
+
+                <!-- Logout Message Alert -->
+                <div th:if="${param.logout}" class="alert alert-success">
+                    Logged out successfully.
+                </div>
+
+                <form th:action="@{/login}" method="post">
+                    <!-- Username -->
+                    <div class="input-box">
+                        <i class="bi bi-person"></i>
+                        <input type="text" name="username" class="custom-input" placeholder="Username" required autocomplete="off">
+                    </div>
+
+                    <!-- Password -->
+                    <div class="input-box">
+                        <i class="bi bi-lock"></i>
+                        <input type="password" name="password" class="custom-input" placeholder="Password" required>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn login-btn">
+                        Sign In <i class="bi bi-arrow-right ms-2"></i>
+                    </button>
+
+                    <a href="#" class="forgot-link">Forgot Password?</a>
+                </form>
+            </div>
+
+            <div class="footer-text">
+                &copy; Smart University System
+            </div>
+        </div>
+
+        <!-- RIGHT SIDE: Background Image -->
+        <div class="login-right">
+            <div class="right-overlay-text">
+                <h3>Empowering Education Through Technology</h3>
+                <p>Manage students, lecturers, courses, and departments effortlessly from a single central portal.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

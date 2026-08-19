@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Enrollment | Smart University System</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Dashboard CSS -->
+    <link rel="stylesheet"
+          th:href="@{/css/dashboard.css}">
+
+</head>
+
+<body>
+
+<!-- Navbar -->
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container-fluid">
+
+    <div class="row">
+
+        <!-- Sidebar -->
+        <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+        <!-- Main Content -->
+        <div class="col-md-10 content">
+
+            <div class="card shadow">
+
+                <!-- Header -->
+                <div class="card-header bg-primary text-white">
+
+                    <h4 class="mb-0"
+                        th:text="${enrollment.id == null}
+                        ? 'Add Enrollment'
+                        : 'Edit Enrollment'">
+
+                        Add Enrollment
+
+                    </h4>
+
+                </div>
+
+                <div class="card-body">
+
+                    <form
+                        th:action="${enrollment.id == null}
+                        ? @{/enrollments}
+                        : @{/enrollments/update/{id}(id=${enrollment.id})}"
+                        th:object="${enrollment}"
+                        method="post">
+
+                        <!-- Hidden ID -->
+                        <input type="hidden"
+                               th:field="*{id}">
+
+
+                        <!-- Student Name -->
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Student Name
+                            </label>
+
+                            <input type="text"
+                                   th:field="*{studentName}"
+                                   class="form-control"
+                                   placeholder="Enter student name">
+
+                            <div class="text-danger mt-1"
+                                 th:if="${#fields.hasErrors('studentName')}"
+                                 th:errors="*{studentName}">
+                            </div>
+
+                        </div>
+
+
+                        <!-- Course Name -->
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Course Name
+                            </label>
+
+                            <input type="text"
+                                   th:field="*{courseName}"
+                                   class="form-control"
+                                   placeholder="Enter course name">
+
+                            <div class="text-danger mt-1"
+                                 th:if="${#fields.hasErrors('courseName')}"
+                                 th:errors="*{courseName}">
+                            </div>
+
+                        </div>
+
+
+                        <!-- Enrollment Date -->
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Enrollment Date
+                            </label>
+
+                            <input type="date"
+                                   th:field="*{enrollmentDate}"
+                                   class="form-control">
+
+                            <div class="text-danger mt-1"
+                                 th:if="${#fields.hasErrors('enrollmentDate')}"
+                                 th:errors="*{enrollmentDate}">
+                            </div>
+
+                        </div>
+
+
+                        <!-- Status -->
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Status
+                            </label>
+
+                            <select th:field="*{status}"
+                                    class="form-select">
+
+                                <option value="">
+                                    Select Status
+                                </option>
+
+                                <option value="Active">
+                                    Active
+                                </option>
+
+                                <option value="Completed">
+                                    Completed
+                                </option>
+
+                                <option value="Dropped">
+                                    Dropped
+                                </option>
+
+                            </select>
+
+                            <div class="text-danger mt-1"
+                                 th:if="${#fields.hasErrors('status')}"
+                                 th:errors="*{status}">
+                            </div>
+
+                        </div>
+
+
+                        <!-- Buttons -->
+                        <button type="submit"
+                                class="btn btn-success">
+
+                            <i class="bi bi-check-circle"></i>
+
+                            <span th:text="${enrollment.id == null}
+                                  ? 'Save Enrollment'
+                                  : 'Update Enrollment'">
+
+                                Save Enrollment
+
+                            </span>
+
+                        </button>
+
+
+                        <a href="/enrollments"
+                           class="btn btn-secondary">
+
+                            <i class="bi bi-x-circle"></i>
+                            Cancel
+
+                        </a>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js">
+</script>
+
+</body>
+
+</html>

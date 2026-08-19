@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<div class="col-md-2 sidebar p-0"
+     th:fragment="sidebar">
+
+    <!-- Dashboard -->
+    <a href="/"
+       th:classappend="${activePage == 'dashboard'} ? 'active'">
+
+        <i class="bi bi-speedometer2"></i>
+        Dashboard
+
+    </a>
+
+
+    <!-- Students -->
+    <a href="/students"
+       th:classappend="${activePage == 'students'} ? 'active'">
+
+        <i class="bi bi-people-fill"></i>
+        Students
+
+    </a>
+
+
+    <!-- Lecturers -->
+    <a href="/lecturers"
+       th:classappend="${activePage == 'lecturers'} ? 'active'">
+
+        <i class="bi bi-person-workspace"></i>
+        Lecturers
+
+    </a>
+
+
+    <!-- Courses -->
+    <a href="/courses"
+       th:classappend="${activePage == 'courses'} ? 'active'">
+
+        <i class="bi bi-book-half"></i>
+        Courses
+
+    </a>
+
+
+    <!-- Departments -->
+    <a href="/departments"
+       th:classappend="${activePage == 'departments'} ? 'active'">
+
+        <i class="bi bi-building"></i>
+        Departments
+
+    </a>
+
+
+    <!-- Enrollments -->
+    <a href="/enrollments"
+       th:classappend="${activePage == 'enrollments'} ? 'active'">
+
+        <i class="bi bi-journal-check"></i>
+        Enrollments
+
+    </a>
+
+
+    <hr class="text-light">
+
+
+    <form th:action="@{/logout}" method="post">
+
+    <button type="submit"
+            class="btn btn-link text-white text-decoration-none w-100 text-start">
+
+        <i class="bi bi-box-arrow-right"></i>
+        Logout
+
+    </button>
+
+</form>
+</div>
+
+</body>
+</html>
